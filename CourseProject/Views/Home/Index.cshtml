@@ -4,4 +4,14 @@
 
 <div class="text-center">
     <h1 class="display-4 font-weight-bold">Wall</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form method="post" asp-controller="Home" asp-action="CreationPage">
+            <div class="row align-items-start">
+                <div class="row">
+                    <div class="col-auto"><button class="btn btn-dark mx-1">Create Post</button></div>
+                </div>
+            </div>
+        </form>
+    }
 </div>

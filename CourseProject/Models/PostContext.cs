@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace CourseProject.Models
 {
-    public class UserContext : DbContext
+    public class PostContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public UserContext(DbContextOptions<UserContext> options)
+        public DbSet<Post> Posts { get; set; }
+        public PostContext(DbContextOptions<PostContext> options)
             : base(options)
         {
             Database.EnsureCreated();
