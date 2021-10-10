@@ -6,28 +6,23 @@ using CourseProject.Models;
 
 namespace CourseProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private PostContext db_p;
-        public HomeController(PostContext context_p)
+        private DataBaseContext db_p;
+        public HomeController(DataBaseContext context_p)
         {
             db_p = context_p;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(PostModel model, LoginModel model_u)
+        public async Task<IActionResult> CreatePost(PostModel model)
         {
             if (ModelState.IsValid)
             {
-                Post post = await db_p.Posts.FirstOrDefaultAsync(p => p.PostName == model.PostName);
-                if (post == null)
-                {
-                    db_p.Posts.Add(new Post { UserName = model_u.Email , PostName = model.PostName, PostContent = model.PostContent });
+                db_p.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent });
                     await db_p.SaveChangesAsync();
-                }
-                return RedirectToAction("Index", "Home");
             }
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult CreationPage()
