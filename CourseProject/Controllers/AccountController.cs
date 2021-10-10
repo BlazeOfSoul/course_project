@@ -10,10 +10,10 @@ using CourseProject.Models;
 
 namespace CourseProject.Controllers
 {
-    public class AccountController : BaseController
+    public class AccountController : Controller
     {
-        private Models.DataBaseContext db;
-        public AccountController(Models.DataBaseContext context)
+        private UserContext db;
+        public AccountController(UserContext context)
         {
             db = context;
         }
@@ -32,7 +32,7 @@ namespace CourseProject.Controllers
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
                 if (user != null)
                 {
-                    await Authenticate(user.Id);
+                    await Authenticate(model.Email);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -54,10 +54,10 @@ namespace CourseProject.Controllers
                 User user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                 if (user == null)
                 {
-                    var newUser = db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                    db.Users.Add(new User { Email = model.Email, Password = model.Password });
                     await db.SaveChangesAsync();
 
-                    await Authenticate(newUser.Entity.Id);
+                    await Authenticate(model.Email);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -67,20 +67,14 @@ namespace CourseProject.Controllers
             return View(model);
         }
 
-        private async Task Authenticate(int userId)
+        private async Task Authenticate(string userName)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userId.ToString())
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
             };
-
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-
-            
-            //var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-            //var claimsPrincipal = new ClaimsPrincipal(identity);
-            //Thread.CurrentPrincipal = claimsPrincipal;
         }
 
         public async Task<IActionResult> Logout()
