@@ -18,8 +18,7 @@ namespace CourseProject
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserContext>(options => options.UseSqlServer(connection));
-            services.AddDbContext<PostContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<Models.DataBaseContext>(options => options.UseSqlServer(connection));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -28,10 +27,9 @@ namespace CourseProject
             services.AddAuthentication()
             .AddGoogle(options =>
             {
-                IConfigurationSection googleAuthNSection =
-                     Configuration.GetSection("Authentication:Google");
+                IConfigurationSection googleAuthNSection = Configuration.GetSection("Authentication:Google");
 
-                     options.ClientId = googleAuthNSection["ClientId"]; ;
+                options.ClientId = googleAuthNSection["ClientId"];
                 options.ClientSecret = googleAuthNSection["ClientSecret"];
             })
             .AddFacebook(facebookOptions =>

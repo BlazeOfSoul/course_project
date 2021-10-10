@@ -6,6 +6,7 @@
     <title>@ViewData["Title"]MathSolver </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/dark-mode-switch-1.0.0/dark-mode.css" />
 </head>
 <body>
     <header>
@@ -16,9 +17,11 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                            <script src="dark-mode-switch.min.js"></script>
 
                             @if (!User.Identity.IsAuthenticated)
                             {
@@ -32,6 +35,11 @@
                                     <button class="btn btn-danger mx-1" type="submit">Logout</button>
                                 </form>
                             }
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="darkSwitch" />
+                                <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+                            </div>
+                            <script src="~/lib/dark-mode-switch-1.0.0/dark-mode-switch.min.js"></script>
                         </div>
 
                     </ul>
