@@ -12,8 +12,8 @@ namespace CourseProject.Controllers
 {
     public class AccountController : BaseController
     {
-        private Models.DataBaseContext db;
-        public AccountController(Models.DataBaseContext context)
+        private DataBaseContext db;
+        public AccountController(DataBaseContext context)
         {
             db = context;
         }
@@ -76,11 +76,6 @@ namespace CourseProject.Controllers
 
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
-
-            
-            //var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-            //var claimsPrincipal = new ClaimsPrincipal(identity);
-            //Thread.CurrentPrincipal = claimsPrincipal;
         }
 
         public async Task<IActionResult> Logout()

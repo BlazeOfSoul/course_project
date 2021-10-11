@@ -14,3 +14,21 @@
 [data-theme="dark"] .bg-black {
   background-color: #eee !important;
 }
+
+[data-theme="dark"] .btn-dark {
+  color: #000000 !important;
+  background-color: #d0c9c9 !important;
+  border-color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-primary {
+  color: #ffffff !important;
+  background-color: #49b393 !important;
+  border-color: #5bd3af !important;
+}
+
+[data-theme="dark"] .btn-danger {
+  color: #ffffff !important;
+  background-color: #8b0808 !important;
+  border-color: #980a0a !important;
+}

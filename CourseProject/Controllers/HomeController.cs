@@ -19,7 +19,7 @@ namespace CourseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db_p.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent });
+                db_p.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent, Answer = model.Answer });
                     await db_p.SaveChangesAsync();
             }
             return RedirectToAction("Index", "Home");

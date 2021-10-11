@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseProject.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20211010115849_AddAnswerToPost")]
-    partial class AddAnswerToPost
+    [Migration("20211010174049_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
