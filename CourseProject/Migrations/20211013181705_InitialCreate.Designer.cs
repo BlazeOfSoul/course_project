@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseProject.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20211010174049_InitialCreate")]
+    [Migration("20211013181705_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace CourseProject.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CheckAnswer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostContent")

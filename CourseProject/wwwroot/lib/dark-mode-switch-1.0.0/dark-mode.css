@@ -32,3 +32,7 @@
   background-color: #8b0808 !important;
   border-color: #980a0a !important;
 }
+
+[data-theme="dark"] .alert-primary {
+  background-color: #87eacd !important;
+}

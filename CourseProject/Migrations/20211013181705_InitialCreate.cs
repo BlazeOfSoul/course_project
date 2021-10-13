@@ -29,7 +29,8 @@ namespace CourseProject.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PostName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CheckAnswer = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

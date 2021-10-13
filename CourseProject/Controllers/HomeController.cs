@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using CourseProject.ViewModels;
 using CourseProject.Models;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseProject.Controllers
 {
@@ -12,6 +14,7 @@ namespace CourseProject.Controllers
         public HomeController(DataBaseContext context_p)
         {
             db_p = context_p;
+            db_p.Posts.Load();
         }
 
         [HttpPost]
@@ -20,19 +23,26 @@ namespace CourseProject.Controllers
             if (ModelState.IsValid)
             {
                 db_p.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent, Answer = model.Answer });
-                    await db_p.SaveChangesAsync();
+                await db_p.SaveChangesAsync();
             }
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult TakeAnswer()
+        {
+            return View();
+        }
         public IActionResult CreationPage()
         {
             return View();
         }
         public IActionResult Index()
         {
-            return View();
+            var user = db_p.Users.FirstOrDefault(u => u.Id == GetUserId);
+            if (user == null) return View();
+            return View(user.Posts);
         }
 
+        
     }
 }

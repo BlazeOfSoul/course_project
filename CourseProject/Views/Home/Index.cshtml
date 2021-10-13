@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Post>
+
+@{
     ViewData["Title"] = "Home Page | ";
 }
 
@@ -14,4 +16,29 @@
             </div>
         </form>
     }
+    <form method="post" asp-controller="Home" asp-action="TakeAnswer">
+        @if (Model != null)
+        {
+            @foreach (var post in Model)
+            {
+
+                <div class="card my-3">
+                    <h5 class="card-header font-weight-bold">
+                        @Html.DisplayFor(model => post.PostName)
+                    </h5>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(model => post.PostContent)</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="form-group">
+                                <label asp-for="CheckAnswer">Your answer to this problem</label><br />
+                                <input type="text" asp-for="CheckAnswer" />
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            }
+        }
+    </form>
 </div>

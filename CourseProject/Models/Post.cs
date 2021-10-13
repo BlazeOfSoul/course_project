@@ -13,5 +13,6 @@ namespace CourseProject.Models
         public string PostName { get; set; }
         public string PostContent { get; set; }
         public string Answer { get; set; }
+        public string CheckAnswer { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace CourseProject.Controllers
             get
             {
                 var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimsIdentity.DefaultNameClaimType)?.Value;
+                if (userId == null) return 1;
                 return int.Parse(userId);
             }
         }

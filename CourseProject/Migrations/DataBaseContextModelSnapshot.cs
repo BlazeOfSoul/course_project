@@ -28,6 +28,9 @@ namespace CourseProject.Migrations
                     b.Property<string>("Answer")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CheckAnswer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");
 
