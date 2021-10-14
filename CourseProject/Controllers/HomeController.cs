@@ -38,9 +38,9 @@ namespace CourseProject.Controllers
         }
         public IActionResult Index()
         {
-            var user = db_p.Users.FirstOrDefault(u => u.Id == GetUserId);
-            if (user == null) return View();
-            return View(user.Posts);
+            var posts = db_p.Posts.ToList();
+            if (posts == null) return View();
+            return View(posts);
         }
 
         

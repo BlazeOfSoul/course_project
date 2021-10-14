@@ -31,8 +31,8 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="form-group">
-                                <label asp-for="CheckAnswer">Your answer to this problem</label><br />
-                                <input type="text" asp-for="CheckAnswer" />
+                                <label asp-for="@post.CheckAnswer">Your answer to this problem</label><br />
+                                <input type="text" asp-for="@post.CheckAnswer" />
                             </div>
                         }
 

@@ -14,5 +14,6 @@ namespace CourseProject.Models
         public string PostContent { get; set; }
         public string Answer { get; set; }
         public string CheckAnswer { get; set; }
+        //public DateTime Date { get; set; }
     }
 }
