@@ -19,6 +19,31 @@ namespace CourseProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("CourseProject.Models.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserAnswer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Answers");
+                });
+
             modelBuilder.Entity("CourseProject.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -27,9 +52,6 @@ namespace CourseProject.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CheckAnswer")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
@@ -69,6 +91,25 @@ namespace CourseProject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CourseProject.Models.Answer", b =>
+                {
+                    b.HasOne("CourseProject.Models.Post", "Post")
+                        .WithMany("Answers")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CourseProject.Models.User", "User")
+                        .WithMany("Answers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CourseProject.Models.Post", b =>
                 {
                     b.HasOne("CourseProject.Models.User", "User")
@@ -80,8 +121,15 @@ namespace CourseProject.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CourseProject.Models.Post", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("CourseProject.Models.User", b =>
                 {
+                    b.Navigation("Answers");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

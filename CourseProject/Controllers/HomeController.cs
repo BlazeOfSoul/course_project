@@ -10,11 +10,14 @@ namespace CourseProject.Controllers
 {
     public class HomeController : BaseController
     {
-        private DataBaseContext db_p;
+
+        
+
+        private DataBaseContext db;
         public HomeController(DataBaseContext context_p)
         {
-            db_p = context_p;
-            db_p.Posts.Load();
+            db = context_p;
+            db.Posts.Load();
         }
 
         [HttpPost]
@@ -22,25 +25,35 @@ namespace CourseProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                db_p.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent, Answer = model.Answer });
-                await db_p.SaveChangesAsync();
+                db.Posts.Add(new Post { UserId = GetUserId, PostName = model.PostName, PostContent = model.PostContent, Answer = model.Answer, Date = System.DateTime.Now });
+                await db.SaveChangesAsync();
             }
             return RedirectToAction("Index", "Home");
         }
-
-        public IActionResult TakeAnswer()
+        [HttpPost]
+        public async Task<IActionResult> TakeAnswer(IndexModel model, string PostID)
         {
+            if (ModelState.IsValid)
+            {
+                db.Answers.Add(new Answer { UserId = GetUserId, UserAnswer = model.IndexAnswer, PostId = int.Parse(PostID) });
+                await db.SaveChangesAsync();
+            }
             return View();
         }
         public IActionResult CreationPage()
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Index()
         {
-            var posts = db_p.Posts.ToList();
+            var posts = db.Posts.ToList();
             if (posts == null) return View();
-            return View(posts);
+            var temp = new IndexModel();
+            temp.Posts = posts;
+            temp.PostID = 0;
+            temp.IndexAnswer = "";
+            return View(temp);
         }
 
         

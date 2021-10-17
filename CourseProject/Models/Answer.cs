@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Models
 {
-    public class Post
+    public class Answer
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public int PostId { get; set; }
         virtual public User User { get; set; }
-        public string PostName { get; set; }
-        public string PostContent { get; set; }
-        public string Answer { get; set; }
-        public DateTime Date { get; set; }
-        virtual public IEnumerable<Answer> Answers { get; set; }
+        virtual public Post Post { get; set; }
+        public string UserAnswer { get; set; }
     }
 }

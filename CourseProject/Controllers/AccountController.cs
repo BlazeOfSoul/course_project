@@ -17,6 +17,7 @@ namespace CourseProject.Controllers
         {
             db = context;
         }
+
         [HttpGet]
         public IActionResult Login()
         {

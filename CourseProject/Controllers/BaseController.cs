@@ -20,7 +20,6 @@ namespace CourseProject.Controllers
                 return int.Parse(userId);
             }
         }
-
-
+        
     }
 }

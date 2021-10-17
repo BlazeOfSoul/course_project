@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Post>
+﻿@model CourseProject.ViewModels.IndexModel
 
 @{
     ViewData["Title"] = "Home Page | ";
@@ -16,10 +16,10 @@
             </div>
         </form>
     }
-    <form method="post" asp-controller="Home" asp-action="TakeAnswer">
+    <form asp-action="TakeAnswer" asp-controller="Home">
         @if (Model != null)
         {
-            @foreach (var post in Model)
+            @foreach (var post in Model.Posts)
             {
 
                 <div class="card my-3">
@@ -31,11 +31,17 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="form-group">
-                                <label asp-for="@post.CheckAnswer">Your answer to this problem</label><br />
-                                <input type="text" asp-for="@post.CheckAnswer" />
+                                <label asp-for="IndexAnswer">Your answer to this problem</label><br />
+                                <input type="text" asp-for="IndexAnswer" />
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary" asp-route-PostID="@post.Id">Reply</button>
                             </div>
                         }
 
+                    </div>
+                    <div class="card-footer">
+                        <p>Task created: @Html.DisplayFor(model => post.Date)</p>
                     </div>
                 </div>
             }
